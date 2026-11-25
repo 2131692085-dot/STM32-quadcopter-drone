@@ -1,0 +1,22 @@
+# ===== Keil MDK 编译产物（drone / rc 两工程通用）=====
+**/MDK-ARM/drone/
+**/MDK-ARM/rc/
+**/MDK-ARM/RTE/
+**/MDK-ARM/*.lst
+**/MDK-ARM/*.dep
+**/MDK-ARM/build_check.txt
+**/MDK-ARM/flash_log.txt
+
+# Keil 窗口布局与备份（个人环境相关）
+*.uvguix.*
+*.bak
+*.dep
+*.d
+
+# 编辑器配置
+.vscode/
+.idea/
+*.code-workspace
+
+# 调试日志
+*.log
