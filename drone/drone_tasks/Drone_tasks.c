@@ -164,7 +164,8 @@ void Motor_task(void *pvParameters)
     while (1)
     {
         App_motor_GetAG_ByFilter(&ag_struct);
-        Common_IMU_GetEulerAngle(&ag_struct, &eulerAngle, 0.01f);
+        // ★2026-11-26 对齐day09: 控制周期 10ms→6ms，dt 必须与周期严格一致
+        Common_IMU_GetEulerAngle(&ag_struct, &eulerAngle, 0.006f);
         //printf("%f,%f,%f\n", eulerAngle.pitch, eulerAngle.roll, eulerAngle.yaw);
 
         if(Drone_Status == eDrone_IDLE)
@@ -213,7 +214,8 @@ void Motor_task(void *pvParameters)
 
         Int_Motor_UpdateSpeed(&motor_right_top);
         Int_Motor_UpdateSpeed(&motor_right_bottom);
-        vTaskDelayUntil(&pre_tick, 10);
+        // ★2026-11-26 对齐day09: Motor_task 周期 10ms→6ms（与上面 dt=0.006 配套，与 Comm_task 同拍）
+        vTaskDelayUntil(&pre_tick, 6);
     }
 }
 
