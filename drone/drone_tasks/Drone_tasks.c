@@ -26,14 +26,16 @@ TaskHandle_t LED_task_handle;
 void Motor_task(void *pvParameters);
 #define MOTOR_TASK_NAME "Motor_task"
 #define MOTOR_TASK_STACK_SIZE 128
-#define MOTOR_TASK_PRIORITY 2
+// ★2026-11-26 优先级调整: Motor_task 2→3，高于 Comm_task——控制环节拍抖动直接影响 dt 假设，应享更高优先级；
+// Comm_task 单次 SPI 轮询仅微秒级，连接判定窗口 500ms，延后无影响（课程原方案为 Comm 3 > Motor 2，此处为主动改进）
+#define MOTOR_TASK_PRIORITY 3
 TaskHandle_t Motor_task_handle;
 
 // 通讯任务
 void Comm_task(void *pvParameters);
 #define COMM_TASK_NAME "Comm_task"
 #define COMM_TASK_STACK_SIZE 128
-#define COMM_TASK_PRIORITY 3
+#define COMM_TASK_PRIORITY 2
 TaskHandle_t Comm_task_handle;
 
 #define LIMIT(x, min, max) (((x) > (max)) ? (max) : (((x) < (min)) ? (min) : (x)))
